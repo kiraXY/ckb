@@ -44,7 +44,6 @@ public class CkbController {
         ckbInputs.setProperties(JSONObject.parseObject(ckbInputsMapping));
         Mappings ckbOutputs = new Mappings();
         ckbOutputs.setProperties(JSONObject.parseObject(ckbOutputsMapping));
-
         INDEXS.put("ckb_inputs", ckbInputs);
         INDEXS.put("ckb_outputs", ckbOutputs);
     }
@@ -60,6 +59,7 @@ public class CkbController {
                     || getLastDataTime("ckb_outputs") > getJobLastFinishTime()) {
                 throw new RuntimeException("job 执行中");
             }
+
             resetESIndex();
 
 
