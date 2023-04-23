@@ -48,7 +48,14 @@ output {
 ```
 创建ES索引
 ```
-  curl -X PUT "192.168.15.147:9200/ckb_outputs?pretty"
-  curl -X PUT "192.168.15.147:9200/ckb_inputs?pretty"
+ 
+curl  -X DELETE http://192.168.15.147:9200/job
+curl  -X DELETE http://192.168.15.147:9200/ckb_inputs
+curl  -X DELETE http://192.168.15.147:9200/ckb_outputs
+
+curl -H "Content-Type:application/json" -X PUT -d ' {"settings":{"index":{"refresh_interval":"10s","number_of_shards":"1","translog":{"flush_threshold_size":"256mb","sync_interval":"10s"},"number_of_replicas":"0","merge":{"policy":{"floor_segment":"50mb","max_merged_segment":"5gb"}}}},"mappings":{"properties":{"num":{"type":"long"},"name":{"type":"keyword"}}}} ' http://192.168.15.147:9200/job
+curl -H "Content-Type:application/json" -X PUT -d ' {"settings":{"index":{"refresh_interval":"10s","number_of_shards":"1","translog":{"flush_threshold_size":"256mb","sync_interval":"10s"},"number_of_replicas":"0","merge":{"policy":{"floor_segment":"50mb","max_merged_segment":"5gb"}}}},"mappings":{"properties":{"@timestamp":{"type":"date"},"num":{"type":"long"},"@version":{"type":"text","fields":{"keyword":{"ignore_above":256,"type":"keyword"}}},"lock":{"properties":{"args":{"type":"binary"},"codeHash":{"type":"binary"},"hashType":{"type":"text","fields":{"keyword":{"ignore_above":256,"type":"keyword"}}}}},"type":{"properties":{"args":{"type":"binary"},"codeHash":{"type":"binary"},"hashType":{"type":"text","fields":{"keyword":{"ignore_above":256,"type":"keyword"}}}}},"capacity":{"type":"long"}}}}' http://192.168.15.147:9200/ckb_outputs
+curl -H "Content-Type:application/json" -X PUT -d ' {"settings":{"index":{"refresh_interval":"10s","number_of_shards":"1","translog":{"flush_threshold_size":"256mb","sync_interval":"10s"},"number_of_replicas":"0","merge":{"policy":{"floor_segment":"50mb","max_merged_segment":"5gb"}}}},"mappings":{"properties":{"@timestamp":{"type":"date"},"num":{"type":"long"},"@version":{"type":"text","fields":{"keyword":{"ignore_above":256,"type":"keyword"}}},"index":{"type":"long"},"txHash":{"type":"binary"},"since":{"type":"long"}}}}' http://192.168.15.147:9200/ckb_inputs
+
 ```
 
