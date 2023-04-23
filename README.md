@@ -14,7 +14,7 @@ docker exec -it kafka1 /opt/kafka/bin/kafka-topics.sh --create --bootstrap-serve
 docker exec -it kafka1 /opt/kafka/bin/kafka-topics.sh --create --bootstrap-server 192.168.15.147:9092  --replication-factor 1 --partitions 1 --topic ckb_outputs
 ```
 
-logstash 配置
+# logstash 配置
 ```
 input {
   kafka {
@@ -46,7 +46,7 @@ output {
         }
 }
 ```
-创建ES索引
+# 创建ES索引
 ```
  
 curl  -X DELETE http://192.168.15.147:9200/job
