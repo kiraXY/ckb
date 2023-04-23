@@ -58,7 +58,7 @@ public class TestrController {
             }
             LongAdder adder=new LongAdder();
             long tipBlockNumber = api.getTipBlockNumber();
-            for (long i = 0; i < 6; i++) {
+            for (long i = 0; i < tipBlockNumber; i++) {
                 Block block = api.getBlockByNumber(i);
                 for (Transaction transaction : block.transactions) {
                     transaction.inputs.forEach(p -> {
