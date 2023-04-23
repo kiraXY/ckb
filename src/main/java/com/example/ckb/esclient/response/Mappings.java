@@ -20,4 +20,7 @@ public final class Mappings {
     @Getter
     @Setter
     private Map<String, Object> properties = new HashMap<>();
+
+
+
 }
